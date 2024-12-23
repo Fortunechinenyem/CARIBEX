@@ -35,7 +35,7 @@ const Login = () => {
 
   return (
     <div
-      className="relative min-h-screen bg-cover bg-center flex items-center justify-center text-white"
+      className="min-h-screen flex items-center justify-center bg-gray-100"
       style={{
         backgroundImage: 'url("/images/hero.png")',
       }}
