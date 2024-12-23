@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Navbar from "../app/components/common/Navbar";
 import Footer from "@/app/components/common/Footer";
+import Link from "next/link";
 
 const Home = () => {
   return (
@@ -22,7 +23,7 @@ const Home = () => {
               Explore, bid, and win your next car at unbeatable prices.
             </p>
             <button className="bg-white text-blue-600 px-6 py-3 rounded shadow-md hover:bg-gray-200">
-              Start Bidding
+              <Link href="/auctions">Start Bidding</Link>
             </button>
           </div>
         </section>
@@ -65,7 +66,7 @@ const Home = () => {
                   </h3>
                   <p className="text-gray-600">Starting Bid: ₦2,500,000</p>
                   <button className="bg-blue-600 text-white px-4 py-2 mt-4 rounded hover:bg-blue-700">
-                    View Auction
+                    <Link href="/auctions">View Auction</Link>
                   </button>
                 </div>
               </div>
@@ -83,7 +84,7 @@ const Home = () => {
                   </h3>
                   <p className="text-gray-600">Starting Bid: ₦2,500,000</p>
                   <button className="bg-blue-600 text-white px-4 py-2 mt-4 rounded hover:bg-blue-700">
-                    View Auction
+                    <Link href="/auctions">View Auction</Link>
                   </button>
                 </div>
               </div>
@@ -101,7 +102,7 @@ const Home = () => {
                   </h3>
                   <p className="text-gray-600">Starting Bid: ₦2,500,000</p>
                   <button className="bg-blue-600 text-white px-4 py-2 mt-4 rounded hover:bg-blue-700">
-                    View Auction
+                    <Link href="/auctions">View Auction</Link>
                   </button>
                 </div>
               </div>
