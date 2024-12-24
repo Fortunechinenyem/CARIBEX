@@ -1,6 +1,6 @@
 import connectDB from "@/lib/db";
+import { verifyAdmin } from "@/middleware/authMiddleware";
 import { ObjectId } from "mongodb";
-import { verifyAdmin } from "@/middleware/auth";
 
 export default async function handler(req, res) {
   if (req.method !== "PATCH") {
