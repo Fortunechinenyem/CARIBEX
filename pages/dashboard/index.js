@@ -7,7 +7,10 @@ const Dashboard = () => {
   useEffect(() => {
     fetch("/api/auctions")
       .then((res) => res.json())
-      .then((data) => setAuctions(data))
+      .then((data) => {
+        console.log("Fetched auctions:", data);
+        setAuctions(data);
+      })
       .catch((error) => console.error("Error fetching auctions:", error));
   }, []);
 
