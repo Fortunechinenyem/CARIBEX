@@ -6,14 +6,13 @@ export default async function handler(req, res) {
     return res.status(405).json({ message: "Method not allowed" });
   }
 
-  const { name, email, password, role = "user" } = req.body;
+  const { name, email, password, role = "buyer" } = req.body; // Default role is "buyer"
 
   try {
     const { db } = await connectDB();
-
     const existingUser = await db.collection("users").findOne({ email });
+
     if (existingUser) {
-      console.log("User already exists:", email);
       return res.status(409).json({ message: "User already exists." });
     }
 
@@ -26,10 +25,9 @@ export default async function handler(req, res) {
       role,
     });
 
-    console.log("New user registered:", email);
     return res.status(201).json({ message: "User registered successfully." });
   } catch (error) {
-    console.error("Error during registration:", error);
+    console.error(error);
     return res.status(500).json({ message: "Internal server error." });
   }
 }

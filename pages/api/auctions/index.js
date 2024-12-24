@@ -1,15 +1,28 @@
 import connectDB from "@/lib/db";
-import Car from "@/models/Car";
 
 export default async function handler(req, res) {
-  await connectDB();
+  if (req.method !== "POST") {
+    return res.status(405).json({ message: "Method not allowed" });
+  }
 
-  if (req.method === "GET") {
-    try {
-      const cars = await Car.find({ status: "active" }).sort({ startTime: -1 });
-      res.status(200).json(cars);
-    } catch (error) {
-      res.status(400).json({ error: "Failed to fetch auctions" });
-    }
+  const { carModel, description, price } = req.body;
+  const sellerId = req.user._id;
+
+  try {
+    const { db } = await connectDB();
+    const newAuction = {
+      carModel,
+      description,
+      price,
+      sellerId,
+      status: "Auction Created",
+    };
+
+    await db.collection("auctions").insertOne(newAuction);
+
+    return res.status(201).json({ message: "Car uploaded successfully." });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Internal server error." });
   }
 }

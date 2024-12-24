@@ -1,25 +1,40 @@
-import AuctionCard from "@/app/components/auction/AuctionCard";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 const Dashboard = () => {
-  const [auctions, setAuctions] = useState([]);
+  const [user, setUser] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
-    fetch("/api/auctions")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("Fetched auctions:", data);
-        setAuctions(data);
+    const token = localStorage.getItem("token");
+    if (!token) {
+      router.push("/login");
+    } else {
+      fetch("/api/user/me", {
+        headers: { Authorization: `Bearer ${token}` },
       })
-      .catch((error) => console.error("Error fetching auctions:", error));
+        .then((res) => {
+          if (!res.ok) throw new Error("Failed to fetch user data");
+          return res.json();
+        })
+        .then((data) => setUser(data))
+        .catch((err) => {
+          console.error(err);
+          router.push("/login");
+        });
+    }
   }, []);
 
+  if (!user) return <p>Loading...</p>;
+
   return (
-    <div className="container mx-auto py-8">
-      <h1 className="text-4xl font-semibold text-center mb-8">Your Auctions</h1>
-      {auctions.map((auction) => (
-        <AuctionCard key={auction._id} car={auction} />
-      ))}
+    <div>
+      <h1>Welcome, {user.name}!</h1>
+      {user.role === "seller" ? (
+        <p>Welcome, Seller! You can upload your car here.</p>
+      ) : (
+        <p>Welcome, Buyer! You can view the available auctions.</p>
+      )}
     </div>
   );
 };
