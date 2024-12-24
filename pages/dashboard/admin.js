@@ -1,5 +1,6 @@
 import React from "react";
 import { FaUsers, FaCar, FaChartBar } from "react-icons/fa"; // Icons for sections
+import Link from "next/link";
 
 const AdminDashboard = () => {
   return (
@@ -23,18 +24,22 @@ const AdminDashboard = () => {
             <p className="mb-4">
               View and manage registered users on the platform.
             </p>
-            <button className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-lg shadow-md">
-              Manage Users
-            </button>
+            <Link href="/admin/users">
+              <button className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-lg shadow-md">
+                Manage Users
+              </button>
+            </Link>
           </div>
 
           <div className="bg-white text-gray-800 rounded-lg shadow-lg p-6 text-center">
             <FaCar className="text-4xl text-green-600 mb-4" />
             <h3 className="text-2xl font-semibold">Manage Cars</h3>
             <p className="mb-4">View and manage car listings for auctions.</p>
-            <button className="bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded-lg shadow-md">
-              Manage Cars
-            </button>
+            <Link href="/admin/cars">
+              <button className="bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded-lg shadow-md">
+                Manage Cars
+              </button>
+            </Link>
           </div>
 
           <div className="bg-white text-gray-800 rounded-lg shadow-lg p-6 text-center">
@@ -43,9 +48,11 @@ const AdminDashboard = () => {
             <p className="mb-4">
               Monitor sales and activity reports on the platform.
             </p>
-            <button className="bg-yellow-600 hover:bg-yellow-700 text-white py-2 px-6 rounded-lg shadow-md">
-              View Reports
-            </button>
+            <Link href="/admin/reports">
+              <button className="bg-yellow-600 hover:bg-yellow-700 text-white py-2 px-6 rounded-lg shadow-md">
+                View Reports
+              </button>
+            </Link>
           </div>
         </div>
       </div>
