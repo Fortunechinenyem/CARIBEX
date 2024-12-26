@@ -22,35 +22,32 @@ const Navbar = () => {
               href="/auctions"
               className="text-gray-700 hover:text-blue-600 flex items-center"
             >
-              <span>📦</span>
               <span className="ml-2">Auctions</span>
             </Link>
           </li>
           <li>
             <Link
-              href="/dashboard/seller"
+              href="/about"
               className="text-gray-700 hover:text-blue-600 flex items-center"
             >
-              <span>📊</span>
-              <span className="ml-2">Seller Dashboard</span>
+              <span className="ml-2">About</span>
             </Link>
           </li>
-          <li>
-            <Link
-              href="/dashboard/admin"
-              className="text-gray-700 hover:text-blue-600 flex items-center"
-            >
-              <span>⚙️</span>
-              <span className="ml-2">Admin Dashboard</span>
-            </Link>
-          </li>
+
           <li>
             <Link
               href="/tracking"
               className="text-gray-700 hover:text-blue-600 flex items-center"
             >
-              <span>🚚</span>
               <span className="ml-2">Tracking</span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/contact"
+              className="text-gray-700 hover:text-blue-600 flex items-center"
+            >
+              <span className="ml-2">Contact</span>
             </Link>
           </li>
         </ul>
@@ -99,26 +96,15 @@ const Navbar = () => {
                 href="/auctions"
                 className="text-gray-700 hover:text-blue-600 flex items-center"
               >
-                <span>📦</span>
                 <span className="ml-2">Auctions</span>
               </Link>
             </li>
             <li>
               <Link
-                href="/dashboard/seller"
+                href="/about"
                 className="text-gray-700 hover:text-blue-600 flex items-center"
               >
-                <span>📊</span>
-                <span className="ml-2">Seller Dashboard</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/dashboard/admin"
-                className="text-gray-700 hover:text-blue-600 flex items-center"
-              >
-                <span>⚙️</span>
-                <span className="ml-2">Admin Dashboard</span>
+                <span className="ml-2">About</span>
               </Link>
             </li>
             <li>
@@ -126,8 +112,15 @@ const Navbar = () => {
                 href="/tracking"
                 className="text-gray-700 hover:text-blue-600 flex items-center"
               >
-                <span>🚚</span>
                 <span className="ml-2">Tracking</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/contact"
+                className="text-gray-700 hover:text-blue-600 flex items-center"
+              >
+                <span className="ml-2">Contact</span>
               </Link>
             </li>
             <li>
