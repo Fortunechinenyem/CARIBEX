@@ -21,13 +21,13 @@ const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link href="/dashboard/seller" className="hover:text-blue-400">
-                Seller Dashboard
+              <Link href="/about" className="hover:text-blue-400">
+                About
               </Link>
             </li>
             <li>
-              <Link href="/dashboard/admin" className="hover:text-blue-400">
-                Admin Dashboard
+              <Link href="/contact" className="hover:text-blue-400">
+                Contact
               </Link>
             </li>
             <li>
