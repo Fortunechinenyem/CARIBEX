@@ -1,4 +1,5 @@
 import connectDB from "@/lib/db";
+import { ObjectId } from "mongodb";
 
 export default async function handler(req, res) {
   const { auctionId } = req.query;
@@ -10,7 +11,17 @@ export default async function handler(req, res) {
   try {
     const { db } = await connectDB();
 
-    const auction = await db.collection("auctions").findOne({ _id: auctionId });
+    const validAuctionId = ObjectId.isValid(auctionId)
+      ? new ObjectId(auctionId)
+      : null;
+
+    if (!validAuctionId) {
+      return res.status(400).json({ message: "Invalid auction ID" });
+    }
+
+    const auction = await db
+      .collection("auctions")
+      .findOne({ _id: validAuctionId });
 
     if (!auction) {
       return res.status(404).json({ message: "Auction not found" });
