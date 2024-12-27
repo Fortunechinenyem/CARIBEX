@@ -5,7 +5,7 @@ import Link from "next/link";
 const AdminDashboard = () => {
   const sampleData = [
     { id: 1, name: "Toyota Camry", bidCount: 10, status: "Pending" },
-    { id: 2, name: "Honda Civic", bidCount: 5, status: "Approved" },
+    { id: 2, name: "Honda Civic", bidCount: 6, status: "Approved" },
     { id: 3, name: "Tesla Model 3", bidCount: 15, status: "Rejected" },
   ];
 
