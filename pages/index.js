@@ -127,7 +127,7 @@ const Home = () => {
                   feedback: "The bidding process was seamless and fun!",
                 },
                 {
-                  name: "Iya Khalid",
+                  name: "Ben Khalid",
                   feedback: "I found my dream car at a great price!",
                 },
                 {
