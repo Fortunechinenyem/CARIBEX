@@ -47,19 +47,32 @@ const Home = () => {
           </div>
         </section>
 
-        <section className="py-12 bg-white">
+        <section className="py-12 bg-gray-50">
           <div className="container mx-auto text-center">
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">
+            <h2 className="text-3xl font-bold text-gray-800 mb-8">
               Explore by Category
             </h2>
-            <div className="flex justify-center space-x-6">
-              {["SUVs", "Sedans", "Trucks"].map((category) => (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                { name: "SUVs", icon: "/images/suv-icon.png" },
+                { name: "Sedans", icon: "/images/sedan-icon.png" },
+                { name: "Trucks", icon: "/images/truck-icon.png" },
+              ].map((category) => (
                 <Link
-                  key={category}
-                  href={`/categories/${category.toLowerCase()}`}
-                  className="bg-blue-600 text-white px-6 py-3 rounded shadow-md hover:bg-blue-700"
+                  key={category.name}
+                  href={`/categories/${category.name.toLowerCase()}`}
+                  className="flex flex-col items-center bg-white p-6 rounded-lg shadow-lg transform transition-transform hover:scale-105 hover:shadow-xl"
                 >
-                  {category}
+                  <Image
+                    src={category.icon}
+                    alt={category.name}
+                    width={64}
+                    height={64}
+                    className="mb-4"
+                  />
+                  <h3 className="text-lg font-semibold text-gray-700">
+                    {category.name}
+                  </h3>
                 </Link>
               ))}
             </div>
