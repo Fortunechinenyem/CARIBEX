@@ -54,9 +54,9 @@ const Home = () => {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
-                { name: "SUVs", icon: "/images/suv-icon.png" },
-                { name: "Sedans", icon: "/images/sedan-icon.png" },
-                { name: "Trucks", icon: "/images/truck-icon.png" },
+                { name: "SUVs", icon: "/images/hero.png" },
+                { name: "Sedans", icon: "/images/pix1.jpg" },
+                { name: "Trucks", icon: "/images/hero.png" },
               ].map((category) => (
                 <Link
                   key={category.name}
