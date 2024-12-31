@@ -4,6 +4,7 @@ import Image from "next/image";
 import Navbar from "../app/components/common/Navbar";
 import Footer from "@/app/components/common/Footer";
 import Link from "next/link";
+import SearchCars from "@/app/components/SearchCars";
 
 const Home = () => {
   return (
@@ -31,19 +32,7 @@ const Home = () => {
 
         <section className="py-6">
           <div className="container mx-auto">
-            <form className="flex space-x-4">
-              <input
-                type="text"
-                placeholder="Search by car make or model"
-                className="flex-1 px-4 py-3 rounded border border-gray-300"
-              />
-              <button
-                type="submit"
-                className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700"
-              >
-                Search
-              </button>
-            </form>
+            <SearchCars />
           </div>
         </section>
 
