@@ -1,10 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import Navbar from "../app/components/common/Navbar";
+
 import Footer from "@/app/components/common/Footer";
 import Link from "next/link";
 import SearchCars from "@/app/components/SearchCars";
+import Navbar from "@/app/components/common/Navbar";
 
 const Home = () => {
   return (
