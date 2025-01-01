@@ -26,7 +26,7 @@ const AdminTable = ({ data }) => {
         cell: ({ row }) => (
           <div className="flex gap-2">
             <button
-              className="bg-blue-500 text-white py-1 px-3 rounded"
+              className="bg-green-500 text-white py-1 px-3 rounded"
               onClick={() => handleApprove(row.original.id)}
             >
               Approve

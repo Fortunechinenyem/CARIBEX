@@ -18,7 +18,7 @@ const AuctionAnalytics = () => {
       {
         label: "Bids Received",
         data: [50, 100, 200, 150, 300],
-        backgroundColor: "rgba(75, 192, 192, 0.6)",
+        backgroundColor: "rgba(82, 87, 116, 0.6)",
       },
     ],
   };
