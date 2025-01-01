@@ -16,6 +16,12 @@ const TrackingPage = () => {
       .catch((err) => console.error("Error fetching tracking data:", err));
   }, []);
 
+  const milestones = [
+    { label: "Car Listed", completed: true },
+    { label: "Bidding Started", completed: true },
+    { label: "Auction Completed", completed: false },
+  ];
+
   return (
     <div className="container mx-auto py-8">
       <h1 className="text-4xl font-semibold text-center mb-8">
@@ -29,9 +35,9 @@ const TrackingPage = () => {
 
       <div>
         <h2 className="text-2xl font-medium mb-4 text-center">
-          Progress Timeline
+          Tracking Timeline
         </h2>
-        <TrackingTimeline milestones={timeline} />
+        <TrackingTimeline milestones={milestones} />
       </div>
     </div>
   );
