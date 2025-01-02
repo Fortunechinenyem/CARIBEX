@@ -8,6 +8,7 @@ const AuctionPage = () => {
     fetch("/api/auctions")
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         if (Array.isArray(data)) {
           setCars(data);
         } else {

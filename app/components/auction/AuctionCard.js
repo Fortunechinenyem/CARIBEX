@@ -1,8 +1,9 @@
+import Image from "next/image";
 import { useState, useEffect } from "react";
-// import { useRouter } from "next/router";
+
 import io from "socket.io-client";
 
-const socket = io();
+const socket = io("http://localhost:3000");
 
 const AuctionCard = ({ car }) => {
   const [currentBid, setCurrentBid] = useState(car.currentBid);
@@ -39,9 +40,10 @@ const AuctionCard = ({ car }) => {
 
   return (
     <div className="card bg-white p-6 rounded-lg shadow-md mb-6">
-      <img
+      <Image
         src={car.image}
         alt={car.make}
+        height={250}
         className="w-full h-60 object-cover rounded-lg mb-4"
       />
       <h3 className="text-xl font-semibold">
