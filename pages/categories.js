@@ -16,7 +16,7 @@ export async function getServerSideProps() {
 
 const CategoryPage = ({ categories }) => {
   return (
-    <section className="py-12 bg-gray-50">
+    <section className="py-12 bg-gray-400">
       <div className="container mx-auto text-center">
         <h2 className="text-3xl font-bold text-gray-800 mb-8">
           Explore by Category
