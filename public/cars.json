@@ -1,0 +1,402 @@
+[
+  {
+    "id": 1,
+    "make": "Toyota",
+    "model": "Camry",
+    "year": 2022,
+    "price": 25000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 2,
+    "make": "Honda",
+    "model": "Civic",
+    "year": 2021,
+    "price": 22000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 3,
+    "make": "Ford",
+    "model": "Mustang",
+    "year": 2023,
+    "price": 45000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 4,
+    "make": "Chevrolet",
+    "model": "Silverado",
+    "year": 2022,
+    "price": 35000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 5,
+    "make": "BMW",
+    "model": "X5",
+    "year": 2023,
+    "price": 60000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 6,
+    "make": "Audi",
+    "model": "A4",
+    "year": 2022,
+    "price": 40000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 7,
+    "make": "Tesla",
+    "model": "Model 3",
+    "year": 2023,
+    "price": 50000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 8,
+    "make": "Nissan",
+    "model": "Altima",
+    "year": 2021,
+    "price": 24000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 9,
+    "make": "Hyundai",
+    "model": "Elantra",
+    "year": 2022,
+    "price": 20000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 10,
+    "make": "Kia",
+    "model": "Sorento",
+    "year": 2023,
+    "price": 30000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 11,
+    "make": "Volkswagen",
+    "model": "Jetta",
+    "year": 2022,
+    "price": 23000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 12,
+    "make": "Subaru",
+    "model": "Outback",
+    "year": 2023,
+    "price": 32000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 13,
+    "make": "Mazda",
+    "model": "CX-5",
+    "year": 2022,
+    "price": 28000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 14,
+    "make": "Lexus",
+    "model": "RX 350",
+    "year": 2023,
+    "price": 55000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 15,
+    "make": "Jeep",
+    "model": "Grand Cherokee",
+    "year": 2022,
+    "price": 38000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 16,
+    "make": "Mercedes-Benz",
+    "model": "C-Class",
+    "year": 2023,
+    "price": 48000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 17,
+    "make": "Porsche",
+    "model": "911",
+    "year": 2023,
+    "price": 120000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 18,
+    "make": "Volvo",
+    "model": "XC90",
+    "year": 2022,
+    "price": 60000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 19,
+    "make": "Land Rover",
+    "model": "Range Rover",
+    "year": 2023,
+    "price": 90000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 20,
+    "make": "Chrysler",
+    "model": "300",
+    "year": 2022,
+    "price": 35000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 21,
+    "make": "Dodge",
+    "model": "Charger",
+    "year": 2023,
+    "price": 40000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 22,
+    "make": "GMC",
+    "model": "Sierra",
+    "year": 2022,
+    "price": 45000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 23,
+    "make": "Ram",
+    "model": "1500",
+    "year": 2023,
+    "price": 50000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 24,
+    "make": "Cadillac",
+    "model": "Escalade",
+    "year": 2023,
+    "price": 80000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 25,
+    "make": "Acura",
+    "model": "MDX",
+    "year": 2022,
+    "price": 50000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 26,
+    "make": "Infiniti",
+    "model": "Q50",
+    "year": 2023,
+    "price": 45000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 27,
+    "make": "Buick",
+    "model": "Enclave",
+    "year": 2022,
+    "price": 40000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 28,
+    "make": "Lincoln",
+    "model": "Navigator",
+    "year": 2023,
+    "price": 85000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 29,
+    "make": "Mitsubishi",
+    "model": "Outlander",
+    "year": 2022,
+    "price": 28000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 30,
+    "make": "Mini",
+    "model": "Cooper",
+    "year": 2023,
+    "price": 30000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 31,
+    "make": "Jaguar",
+    "model": "F-PACE",
+    "year": 2022,
+    "price": 60000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 32,
+    "make": "Alfa Romeo",
+    "model": "Giulia",
+    "year": 2023,
+    "price": 50000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 33,
+    "make": "Genesis",
+    "model": "G80",
+    "year": 2022,
+    "price": 55000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 34,
+    "make": "Fiat",
+    "model": "500X",
+    "year": 2023,
+    "price": 25000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 35,
+    "make": "Maserati",
+    "model": "Ghibli",
+    "year": 2022,
+    "price": 80000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 36,
+    "make": "Bentley",
+    "model": "Continental GT",
+    "year": 2023,
+    "price": 250000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 37,
+    "make": "Rolls-Royce",
+    "model": "Ghost",
+    "year": 2022,
+    "price": 350000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 38,
+    "make": "Lamborghini",
+    "model": "Huracan",
+    "year": 2023,
+    "price": 300000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 39,
+    "make": "Ferrari",
+    "model": "488 GTB",
+    "year": 2022,
+    "price": 350000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 40,
+    "make": "McLaren",
+    "model": "720S",
+    "year": 2023,
+    "price": 300000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 41,
+    "make": "Aston Martin",
+    "model": "DB11",
+    "year": 2022,
+    "price": 220000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 42,
+    "make": "Bugatti",
+    "model": "Chiron",
+    "year": 2023,
+    "price": 3000000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 43,
+    "make": "Koenigsegg",
+    "model": "Jesko",
+    "year": 2022,
+    "price": 3000000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 44,
+    "make": "Pagani",
+    "model": "Huayra",
+    "year": 2023,
+    "price": 2500000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 45,
+    "make": "Rimac",
+    "model": "Nevera",
+    "year": 2022,
+    "price": 2000000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 46,
+    "make": "Lucid",
+    "model": "Air",
+    "year": 2023,
+    "price": 80000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 47,
+    "make": "Rivian",
+    "model": "R1T",
+    "year": 2022,
+    "price": 75000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 48,
+    "make": "Polestar",
+    "model": "2",
+    "year": 2023,
+    "price": 60000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 49,
+    "make": "Tesla",
+    "model": "Model S",
+    "year": 2022,
+    "price": 90000,
+    "image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 50,
+    "make": "Tesla",
+    "model": "Model X",
+    "year": 2023,
+    "price": 100000,
+    "image": "https://via.placeholder.com/150"
+  }
+]

@@ -6,6 +6,7 @@ import Footer from "@/app/components/common/Footer";
 import Link from "next/link";
 import SearchCars from "@/app/components/SearchCars";
 import Navbar from "@/app/components/common/Navbar";
+import ExploreCategories from "@/app/components/ExploreCategory";
 
 const Home = () => {
   return (
@@ -38,35 +39,7 @@ const Home = () => {
         </section>
 
         <section className="py-12 bg-gray-50">
-          <div className="container mx-auto text-center">
-            <h2 className="text-3xl font-bold text-gray-800 mb-8">
-              Explore by Category
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {[
-                { name: "SUVs", icon: "/images/hero.png" },
-                { name: "Sedans", icon: "/images/pix1.jpg" },
-                { name: "Trucks", icon: "/images/hero.png" },
-              ].map((category) => (
-                <Link
-                  key={category.name}
-                  href={`/categories/${category.name.toLowerCase()}`}
-                  className="flex flex-col items-center bg-white p-6 rounded-lg shadow-lg transform transition-transform hover:scale-105 hover:shadow-xl"
-                >
-                  <Image
-                    src={category.icon}
-                    alt={category.name}
-                    width={64}
-                    height={64}
-                    className="mb-4"
-                  />
-                  <h3 className="text-lg font-semibold text-gray-700">
-                    {category.name}
-                  </h3>
-                </Link>
-              ))}
-            </div>
-          </div>
+          <ExploreCategories />
         </section>
 
         <section className="py-12">

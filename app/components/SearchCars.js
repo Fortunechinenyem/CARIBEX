@@ -13,16 +13,14 @@ const SearchCars = () => {
     setCars([]);
 
     try {
-      const response = await fetch(
-        `https://freetestapi.com/api/v1/cars?search=${encodeURIComponent(
-          query
-        )}`
-      );
+      // Fetch data from the local JSON file
+      const response = await fetch("/cars.json");
       if (!response.ok) {
-        throw new Error("Failed to fetch cars");
+        throw new Error("Failed to fetch car data");
       }
       const data = await response.json();
 
+      // Filter cars based on the query
       const filteredCars = data.filter(
         (car) =>
           car.make.toLowerCase().includes(query.toLowerCase()) ||
@@ -75,7 +73,8 @@ const SearchCars = () => {
                     <h3 className="text-lg font-bold text-gray-800">
                       {car.make} {car.model}
                     </h3>
-                    <p className="text-gray-600">Price: {car.price || "N/A"}</p>
+                    <p className="text-gray-600">Year: {car.year}</p>
+                    <p className="text-gray-600">Price: ${car.price}</p>
                   </div>
                 </div>
               ))
