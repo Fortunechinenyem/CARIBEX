@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/lib/firebase";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -15,17 +17,12 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
 
-      const data = await res.json();
-      setLoading(false);
-      if (!res.ok) throw new Error(data.message);
-
-      localStorage.setItem("token", data.token);
       router.push("/dashboard");
     } catch (err) {
       setLoading(false);

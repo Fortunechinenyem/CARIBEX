@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { app } from "@/lib/firebase";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -16,17 +18,15 @@ const Register = () => {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password }),
-      });
+      const auth = getAuth(app);
 
-      const data = await res.json();
-      setLoading(false);
-      if (!res.ok) throw new Error(data.message);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
 
-      router.push("/login");
+      router.push("/dashboard");
     } catch (err) {
       setLoading(false);
       setError(err.message || "An error occurred. Please try again.");
