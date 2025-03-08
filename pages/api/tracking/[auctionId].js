@@ -1,5 +1,5 @@
-import connectDB from "@/lib/db";
-import { ObjectId } from "mongodb";
+import { db } from "@/lib/firebase"; // Import Firestore instance
+import { doc, getDoc } from "firebase/firestore";
 
 export default async function handler(req, res) {
   const { auctionId } = req.query;
@@ -9,24 +9,17 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { db } = await connectDB();
+    // Fetch the auction document from Firestore
+    const auctionRef = doc(db, "auctions", auctionId);
+    const auctionDoc = await getDoc(auctionRef);
 
-    const validAuctionId = ObjectId.isValid(auctionId)
-      ? new ObjectId(auctionId)
-      : null;
-
-    if (!validAuctionId) {
-      return res.status(400).json({ message: "Invalid auction ID" });
-    }
-
-    const auction = await db
-      .collection("auctions")
-      .findOne({ _id: validAuctionId });
-
-    if (!auction) {
+    if (!auctionDoc.exists()) {
       return res.status(404).json({ message: "Auction not found" });
     }
 
+    const auction = auctionDoc.data();
+
+    // Define milestones based on auction status
     const milestones = [
       { label: "Car Listed", date: auction.listedDate, completed: true },
       {

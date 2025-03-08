@@ -1,34 +1,45 @@
-import connectDB from "@/lib/db";
-import Bid from "@/models/Bid";
-import Car from "@/models/Car";
+import { db } from "@/lib/firebase";
+import { doc, getDoc, updateDoc, collection, addDoc } from "firebase/firestore";
 
 export default async function handler(req, res) {
-  await connectDB();
-
   if (req.method === "POST") {
     const { carId, userId, bidAmount } = req.body;
 
     try {
-      const car = await Car.findById(carId);
+      const carRef = doc(db, "cars", carId);
+      const carDoc = await getDoc(carRef);
 
-      if (bidAmount <= car.currentBid) {
+      if (!carDoc.exists()) {
+        return res.status(404).json({ error: "Car not found" });
+      }
+
+      const carData = carDoc.data();
+
+      if (bidAmount <= carData.currentBid) {
         return res
           .status(400)
           .json({ error: "Bid must be higher than the current bid" });
       }
 
-      const newBid = await Bid.create({
+      // Add the new bid to the "bids" collection
+      const bidsCollection = collection(db, "bids");
+      const newBid = await addDoc(bidsCollection, {
         carId,
         userId,
         bidAmount,
+        timestamp: new Date(),
       });
 
-      car.currentBid = bidAmount;
-      await car.save();
+      await updateDoc(carRef, {
+        currentBid: bidAmount,
+      });
 
-      res.status(201).json(newBid);
+      res.status(201).json({ id: newBid.id, carId, userId, bidAmount });
     } catch (error) {
-      res.status(400).json({ error: "Failed to place bid" });
+      console.error("Error placing bid:", error);
+      res.status(500).json({ error: "Failed to place bid" });
     }
+  } else {
+    res.status(405).json({ error: "Method not allowed" });
   }
 }

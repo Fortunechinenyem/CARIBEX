@@ -1,31 +1,45 @@
 import AuctionCard from "@/app/components/auction/AuctionCard";
 import { useEffect, useState } from "react";
+import { collection, getDocs, onSnapshot } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 
 const AuctionPage = () => {
   const [cars, setCars] = useState([]);
 
   useEffect(() => {
-    fetch("/api/auctions")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (Array.isArray(data)) {
-          setCars(data);
-        } else {
-          console.error("Expected an array, got:", data);
-        }
-      })
-      .catch((error) => console.error("Failed to fetch auctions:", error));
+    const fetchCars = async () => {
+      const carsCollection = collection(db, "cars");
+      const carsSnapshot = await getDocs(carsCollection);
+      const carsData = carsSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setCars(carsData);
+    };
+
+    fetchCars();
+
+    const unsubscribe = onSnapshot(collection(db, "cars"), (snapshot) => {
+      const updatedCars = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setCars(updatedCars);
+    });
+
+    return () => unsubscribe();
   }, []);
 
   return (
-    <div className="container mx-auto py-8">
+    <div className="container mx-auto py-8 px-4">
       <h1 className="text-4xl font-semibold text-center mb-8">
         Ongoing Auctions
       </h1>
-      {cars.map((car) => (
-        <AuctionCard key={car._id} car={car} />
-      ))}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {cars.map((car) => (
+          <AuctionCard key={car.id} car={car} />
+        ))}
+      </div>
     </div>
   );
 };

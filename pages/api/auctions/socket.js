@@ -24,7 +24,7 @@ export default function handler(req, res) {
       console.log("A user connected");
 
       socket.on("placeBid", (data) => {
-        console.log(`New bid for car ID ${data.carId}: ₦${data.bidAmount}`);
+        console.log(`New bid for car ID ${data.carId}: ₦{data.bidAmount}`);
         io.emit("newBid", data);
       });
 
