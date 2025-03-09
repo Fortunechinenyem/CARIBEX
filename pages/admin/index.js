@@ -1,6 +1,16 @@
 import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "@/lib/firebase";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  onSnapshot,
+} from "firebase/firestore";
+
+import { db, auth } from "@/lib/firebase";
+import { useRouter } from "next/router";
+import { onAuthStateChanged } from "firebase/auth";
+import { motion } from "framer-motion";
 import AdminTable from "@/app/components/admin/AdminTable";
 import AuctionAnalytics from "@/app/components/admin/Chart";
 import Link from "next/link";
@@ -9,27 +19,59 @@ const AdminDashboard = () => {
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [user, setUser] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
-    const fetchCars = async () => {
-      try {
-        const carsCollection = collection(db, "cars");
-        const carsSnapshot = await getDocs(carsCollection);
-        const carsData = carsSnapshot.docs.map((doc) => ({
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      if (firebaseUser) {
+        const fetchUserRole = async () => {
+          const userDoc = await getDoc(doc(db, "users", firebaseUser.uid));
+          if (userDoc.exists() && userDoc.data().role === "admin") {
+            setUser({
+              uid: firebaseUser.uid,
+              email: firebaseUser.email,
+              name: firebaseUser.displayName || "Admin",
+              role: "admin",
+            });
+            setLoading(false);
+          } else {
+            router.push("/login");
+          }
+        };
+
+        fetchUserRole();
+      } else {
+        router.push("/login");
+      }
+    });
+
+    return () => unsubscribe();
+  }, [router]);
+
+  useEffect(() => {
+    if (!user) return;
+
+    const carsCollection = collection(db, "cars");
+    const unsubscribe = onSnapshot(
+      carsCollection,
+      (snapshot) => {
+        const carsData = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
         setCars(carsData);
         setLoading(false);
-      } catch (err) {
+      },
+      (err) => {
         console.error("Error fetching cars:", err);
         setError("Failed to fetch car data");
         setLoading(false);
       }
-    };
+    );
 
-    fetchCars();
-  }, []);
+    return () => unsubscribe();
+  }, [user]);
 
   if (loading) {
     return (
@@ -49,15 +91,28 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
-      <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
-        Admin Dashboard
-      </h1>
+      <div
+        className="relative min-h-screen bg-cover bg-center"
+        style={{ backgroundImage: "url('/images/hero.png')" }}
+      >
+        <div className="absolute inset-0 bg-black opacity-60"></div>
+        <div className="relative container mx-auto text-white py-16">
+          <h1 className="text-4xl font-semibold text-center mb-8">
+            Admin Dashboard
+          </h1>
+          <p className="text-xl text-center mb-12">
+            Manage and monitor the Car Auction Platform
+          </p>
+        </div>
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        <div className="bg-white shadow-md rounded-lg p-6">
-          <h2 className="text-xl font-semibold mb-4 text-gray-700">
-            Platform Management
-          </h2>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="bg-white shadow-md rounded-lg p-6"
+        >
           <AdminTable
             data={cars.map((car) => ({
               id: car.id,
@@ -66,17 +121,27 @@ const AdminDashboard = () => {
               status: car.status || "Pending",
             }))}
           />
-        </div>
+        </motion.div>
 
-        <div className="bg-white shadow-md rounded-lg p-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="bg-white shadow-md rounded-lg p-6"
+        >
           <h2 className="text-xl font-semibold mb-4 text-gray-700">
             Auction Analytics
           </h2>
           <AuctionAnalytics cars={cars} />
-        </div>
+        </motion.div>
       </div>
 
-      <div className="bg-white shadow-md rounded-lg p-6 text-center">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+        className="bg-white shadow-md rounded-lg p-6 text-center"
+      >
         <h2 className="text-lg font-semibold mb-4 text-gray-700">
           Quick Links
         </h2>
@@ -100,7 +165,33 @@ const AdminDashboard = () => {
             Manage Users
           </Link>
         </div>
-      </div>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.6 }}
+        className="bg-white shadow-md rounded-lg p-6 mt-8"
+      >
+        <h2 className="text-xl font-semibold mb-4 text-gray-700">
+          Recent Activity
+        </h2>
+        <div className="space-y-4">
+          {cars.slice(0, 5).map((car) => (
+            <div key={car.id} className="border-b border-gray-200 pb-4">
+              <p className="text-gray-800">
+                <span className="font-semibold">
+                  {car.make} {car.model}
+                </span>{" "}
+                - <span className="text-blue-600">₦{car.currentBid}</span>
+              </p>
+              <p className="text-sm text-gray-600">
+                Status: <span className="font-semibold">{car.status}</span>
+              </p>
+            </div>
+          ))}
+        </div>
+      </motion.div>
     </div>
   );
 };

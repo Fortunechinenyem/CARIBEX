@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { app } from "@/lib/firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { auth, db } from "@/lib/firebase";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -18,13 +19,22 @@ const Register = () => {
     setLoading(true);
 
     try {
-      const auth = getAuth(app);
+      const authInstance = getAuth();
 
       const userCredential = await createUserWithEmailAndPassword(
-        auth,
+        authInstance,
         email,
         password
       );
+
+      const user = userCredential.user;
+
+      await setDoc(doc(db, "users", user.uid), {
+        name,
+        email,
+        role: "user",
+        createdAt: new Date(),
+      });
 
       router.push("/dashboard");
     } catch (err) {

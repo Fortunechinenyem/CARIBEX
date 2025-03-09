@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "@/lib/firebase";
+import { doc, getDoc } from "firebase/firestore";
+import { auth, db } from "@/lib/firebase";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -23,7 +24,21 @@ const Login = () => {
         password
       );
 
-      router.push("/dashboard");
+      const user = userCredential.user;
+
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        const role = userData.role;
+
+        if (role === "admin") {
+          router.push("/admin");
+        } else {
+          router.push("/dashboard");
+        }
+      } else {
+        setError("User data not found.");
+      }
     } catch (err) {
       setLoading(false);
       setError(err.message || "An error occurred. Please try again.");

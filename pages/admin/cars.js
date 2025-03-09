@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { FaEdit, FaTrashAlt } from "react-icons/fa";
 
 const ManageCars = () => {
   const [cars, setCars] = useState([]);
