@@ -50,9 +50,9 @@ Statuses: “Bidding”, “Won”, “Payment Pending”, “In Transit”, “
 
 Frontend: Next.js, Tailwind CSS.
 Backend: Next.js API Routes or Node.js/Express.
-Database: MongoDB (via Mongoose).
+Database: Firebase.
 API Integration: REST/GraphQL for communication with external services.
 Real-time: WebSockets, Pusher, or Firebase.
-Authentication: NextAuth or Firebase Auth.
+Authentication: Firebase Auth.
 Payments: Stripe, Paystack, or Flutterwave.
 Hosting: Vercel for frontend, Railway or AWS for backend.
