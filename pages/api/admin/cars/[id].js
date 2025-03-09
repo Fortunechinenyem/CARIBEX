@@ -1,6 +1,6 @@
-import connectDB from "@/lib/db";
-import { verifyAdmin } from "@/middleware/authMiddleware";
-import { ObjectId } from "mongodb";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "@/lib/firebase"; // Import Firestore instance
+import { verifyAdmin } from "@/middleware/authMiddleware"; // Import admin verification middleware
 
 export default async function handler(req, res) {
   if (req.method !== "PATCH") {
@@ -16,23 +16,14 @@ export default async function handler(req, res) {
 
   await verifyAdmin(req, res, async () => {
     try {
-      const { db } = await connectDB();
-      const result = await db
-        .collection("cars")
-        .updateOne(
-          { _id: new ObjectId(id) },
-          { $set: { status: action === "approve" ? "Approved" : "Rejected" } }
-        );
+      const carRef = doc(db, "cars", id);
+      const newStatus = action === "approve" ? "Approved" : "Rejected";
 
-      if (result.modifiedCount === 0) {
-        return res
-          .status(404)
-          .json({ message: "Car not found or already processed." });
-      }
+      await updateDoc(carRef, { status: newStatus });
 
       return res.status(200).json({ message: `Car ${action}ed successfully.` });
     } catch (error) {
-      console.error(error);
+      console.error("Error updating car status:", error);
       return res.status(500).json({ message: "Failed to update car status." });
     }
   });

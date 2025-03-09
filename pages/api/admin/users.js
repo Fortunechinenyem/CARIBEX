@@ -1,64 +1,65 @@
-import connectDB from "@/lib/db";
+import {
+  collection,
+  getDocs,
+  doc,
+  deleteDoc,
+  updateDoc,
+} from "firebase/firestore";
+import { db } from "@/lib/firebase"; // Import Firestore instance
+import { verifyAdmin } from "@/middleware/authMiddleware"; // Import admin verification middleware
 
 export default async function handler(req, res) {
-  if (req.method === "GET") {
-    try {
-      const { db } = await connectDB();
+  await verifyAdmin(req, res, async () => {
+    if (req.method === "GET") {
+      try {
+        const usersCollection = collection(db, "users");
+        const usersSnapshot = await getDocs(usersCollection);
+        const users = usersSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
 
-      const users = await db.collection("users").find().toArray();
+        res.status(200).json(users);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+        res.status(500).json({ message: "Internal server error" });
+      }
+    } else if (req.method === "DELETE") {
+      const { userId } = req.body;
 
-      res.status(200).json(users);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Internal server error" });
-    }
-  } else if (req.method === "DELETE") {
-    const { userId } = req.body;
-
-    if (!userId) {
-      return res.status(400).json({ message: "User ID is required" });
-    }
-
-    try {
-      const { db } = await connectDB();
-
-      const result = await db
-        .collection("users")
-        .deleteOne({ _id: new ObjectId(userId) });
-
-      if (result.deletedCount === 0) {
-        return res.status(404).json({ message: "User not found" });
+      if (!userId) {
+        return res.status(400).json({ message: "User ID is required" });
       }
 
-      res.status(200).json({ message: "User deleted successfully" });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Internal server error" });
-    }
-  } else if (req.method === "PUT") {
-    const { userId, updatedData } = req.body;
+      try {
+        const userRef = doc(db, "users", userId);
+        await deleteDoc(userRef);
 
-    if (!userId || !updatedData) {
-      return res.status(400).json({ message: "User ID and data are required" });
-    }
+        res.status(200).json({ message: "User deleted successfully" });
+      } catch (error) {
+        console.error("Error deleting user:", error);
+        res.status(500).json({ message: "Internal server error" });
+      }
+    } else if (req.method === "PUT") {
+      const { userId, updatedData } = req.body;
 
-    try {
-      const { db } = await connectDB();
-
-      const result = await db
-        .collection("users")
-        .updateOne({ _id: new ObjectId(userId) }, { $set: updatedData });
-
-      if (result.matchedCount === 0) {
-        return res.status(404).json({ message: "User not found" });
+      if (!userId || !updatedData) {
+        return res
+          .status(400)
+          .json({ message: "User ID and data are required" });
       }
 
-      res.status(200).json({ message: "User updated successfully" });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Internal server error" });
+      try {
+        const userRef = doc(db, "users", userId);
+        await updateDoc(userRef, updatedData);
+
+        res.status(200).json({ message: "User updated successfully" });
+      } catch (error) {
+        console.error("Error updating user:", error);
+        res.status(500).json({ message: "Internal server error" });
+      }
+    } else {
+      res.status(405).json({ message: "Method not allowed" });
     }
-  } else {
-    res.status(405).json({ message: "Method not allowed" });
-  }
+  });
 }

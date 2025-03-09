@@ -1,13 +1,51 @@
+import { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 import AdminTable from "@/app/components/admin/AdminTable";
 import AuctionAnalytics from "@/app/components/admin/Chart";
 import Link from "next/link";
 
 const AdminDashboard = () => {
-  const sampleData = [
-    { id: 1, name: "Toyota Camry", bidCount: 10, status: "Pending" },
-    { id: 2, name: "Honda Civic", bidCount: 6, status: "Approved" },
-    { id: 3, name: "Tesla Model 3", bidCount: 15, status: "Rejected" },
-  ];
+  const [cars, setCars] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchCars = async () => {
+      try {
+        const carsCollection = collection(db, "cars");
+        const carsSnapshot = await getDocs(carsCollection);
+        const carsData = carsSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setCars(carsData);
+        setLoading(false);
+      } catch (err) {
+        console.error("Error fetching cars:", err);
+        setError("Failed to fetch car data");
+        setLoading(false);
+      }
+    };
+
+    fetchCars();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <p className="text-red-500 text-lg">{error}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -20,14 +58,21 @@ const AdminDashboard = () => {
           <h2 className="text-xl font-semibold mb-4 text-gray-700">
             Platform Management
           </h2>
-          <AdminTable data={sampleData} />
+          <AdminTable
+            data={cars.map((car) => ({
+              id: car.id,
+              name: `${car.make} ${car.model}`,
+              bidCount: car.bidCount || 0,
+              status: car.status || "Pending",
+            }))}
+          />
         </div>
 
         <div className="bg-white shadow-md rounded-lg p-6">
           <h2 className="text-xl font-semibold mb-4 text-gray-700">
             Auction Analytics
           </h2>
-          <AuctionAnalytics />
+          <AuctionAnalytics cars={cars} />
         </div>
       </div>
 
