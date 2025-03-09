@@ -1,4 +1,5 @@
-import connectDB from "@/lib/db";
+import { db } from "@/lib/firebase";
+import { collection, addDoc } from "firebase/firestore";
 import formidable from "formidable-serverless";
 import { v4 as uuidv4 } from "uuid";
 
@@ -18,7 +19,6 @@ export default async function handler(req, res) {
   form.keepExtensions = true;
 
   try {
-    const { db } = await connectDB();
     form.parse(req, async (err, fields, files) => {
       if (err) {
         console.error(err);
@@ -41,7 +41,8 @@ export default async function handler(req, res) {
         createdAt: new Date(),
       };
 
-      await db.collection("cars").insertOne(carData);
+      const carsCollection = collection(db, "cars");
+      await addDoc(carsCollection, carData);
 
       return res.status(201).json({ message: "Car uploaded successfully!" });
     });
