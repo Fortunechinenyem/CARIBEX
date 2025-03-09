@@ -7,7 +7,14 @@ const ManageUsers = () => {
   useEffect(() => {
     fetch("/api/admin/users")
       .then((res) => res.json())
-      .then((data) => setUsers(data))
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setUsers(data);
+        } else {
+          console.error("Expected an array but got:", data);
+          setUsers([]);
+        }
+      })
       .catch((error) => console.error("Error fetching users:", error));
   }, []);
 
