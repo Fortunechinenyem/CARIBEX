@@ -5,7 +5,7 @@ export default [
     plugins: {
       "@next/next": next,
     },
-    rules: {},
+    rules: { "react/react-in-jsx-scope": "off" },
   },
   {
     files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],

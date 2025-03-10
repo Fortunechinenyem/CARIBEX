@@ -15,6 +15,7 @@
     "bcryptjs": "^2.4.3",
     "chart.js": "^4.4.7",
     "firebase": "^11.4.0",
+    "firebase-admin": "^13.2.0",
     "formidable-serverless": "^1.1.1",
     "framer-motion": "^12.4.10",
     "jsonwebtoken": "^9.0.2",
