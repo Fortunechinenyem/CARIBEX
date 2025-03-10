@@ -8,28 +8,14 @@ const ManageUsers = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const user = auth.currentUser; // ✅ Use `auth` directly
+        console.log("Fetching users...");
+        const res = await fetch("/api/admin/users");
 
-        if (!user) {
-          console.error("No authenticated user");
-          return;
-        }
-
-        const token = await user.getIdToken();
-
-        const res = await fetch("/api/admin/users", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        if (!res.ok) {
-          throw new Error(`HTTP error! Status: ${res.status}`);
-        }
+        console.log("API Response Status:", res.status);
 
         const data = await res.json();
+        console.log("API Data:", data);
+
         if (Array.isArray(data)) {
           setUsers(data);
         } else {
