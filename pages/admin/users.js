@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FaTrashAlt, FaEdit } from "react-icons/fa";
-import { auth } from "@/lib/firebase"; // ✅ Use the initialized auth instance
+import { auth } from "@/lib/firebase";
 
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
@@ -52,7 +52,7 @@ const ManageUsers = () => {
                 <button className="text-red-600 hover:text-red-800">
                   <FaTrashAlt />
                 </button>
-                <button className="ml-4 text-blue-600 hover:text-blue-800">
+                <button className="ml-4 text-purple-600 hover:text-blue-800">
                   <FaEdit />
                 </button>
               </td>

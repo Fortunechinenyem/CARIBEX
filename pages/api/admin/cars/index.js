@@ -1,6 +1,6 @@
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "@/lib/firebase"; // Import Firestore instance
-import { verifyAdmin } from "@/middleware/authMiddleware"; // Import admin verification middleware
+import { db } from "@/lib/firebase";
+import { verifyAdmin } from "@/middleware/authMiddleware";
 
 export default async function handler(req, res) {
   await verifyAdmin(req, res, async () => {
